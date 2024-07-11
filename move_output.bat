@@ -1,0 +1,1 @@
+move C:\Users\IXBOB\Desktop\PlotPlugin\IXBOBPlotPlugin\build\libs\IXBOBPlotPlugin-1.0-SNAPSHOT-all.jar C:\Users\IXBOB\Desktop\java_CloudServer\1.18.1_build0422\plugins

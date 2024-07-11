@@ -1,0 +1,4 @@
+name: SoManyRewards
+version: '${version}'
+main: com.ixbob.somanyrewards.SoManyRewards
+api-version: '1.20'
