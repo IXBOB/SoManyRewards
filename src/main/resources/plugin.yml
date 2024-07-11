@@ -2,3 +2,8 @@ name: SoManyRewards
 version: '${version}'
 main: com.ixbob.somanyrewards.SoManyRewards
 api-version: '1.20'
+author: 'IXBOB'
+commands:
+  rewards:
+    description: open the rewards UI.
+    usage: /<command>
