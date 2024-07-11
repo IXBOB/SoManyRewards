@@ -16,9 +16,9 @@ public abstract class BasicUI implements IBasicUI{
     protected Inventory inventory;
     private final int lineAmount;
     private final int maxIndex;
-    private ArrayList<Integer> leftButtons = new ArrayList<>();
-    private ArrayList<Integer> rightButtons = new ArrayList<>();
-    private HashMap<Integer, ItemStack> itemsMap = new HashMap<>();
+    private final ArrayList<Integer> leftButtons = new ArrayList<>();
+    private final ArrayList<Integer> rightButtons = new ArrayList<>();
+    private final HashMap<Integer, ItemStack> itemsMap = new HashMap<>();
 
     public BasicUI(int lineAmount, Player owner) {
         this.owner = owner;
@@ -73,7 +73,7 @@ public abstract class BasicUI implements IBasicUI{
         if (index > event.getRawSlot()) {
             return;
         }
-
+        event.setCancelled(true);
     }
 
     @Override

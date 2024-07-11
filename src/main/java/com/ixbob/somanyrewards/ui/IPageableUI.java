@@ -1,6 +1,6 @@
 package com.ixbob.somanyrewards.ui;
 
-public interface PageableUI {
+public interface IPageableUI {
 
     void setDisplayingPage(int page);
 
