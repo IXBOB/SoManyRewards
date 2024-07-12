@@ -1,8 +1,7 @@
 package com.ixbob.somanyrewards.listener;
 
-import com.ixbob.somanyrewards.manager.UIManager;
+import com.ixbob.somanyrewards.ui.UIManager;
 import com.ixbob.somanyrewards.ui.BasicUI;
-import com.ixbob.somanyrewards.ui.RewardOfBasicGameTimeUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

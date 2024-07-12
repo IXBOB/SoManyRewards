@@ -1,6 +1,6 @@
 package com.ixbob.somanyrewards.listener;
 
-import com.ixbob.somanyrewards.manager.UIManager;
+import com.ixbob.somanyrewards.ui.UIManager;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,6 +1,5 @@
 package com.ixbob.somanyrewards.ui;
 
-import com.ixbob.somanyrewards.manager.UIManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

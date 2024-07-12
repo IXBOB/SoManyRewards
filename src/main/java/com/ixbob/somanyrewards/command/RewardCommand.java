@@ -1,6 +1,6 @@
 package com.ixbob.somanyrewards.command;
 
-import com.ixbob.somanyrewards.manager.UIManager;
+import com.ixbob.somanyrewards.ui.UIManager;
 import com.ixbob.somanyrewards.ui.RewardOfBasicGameTimeUI;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

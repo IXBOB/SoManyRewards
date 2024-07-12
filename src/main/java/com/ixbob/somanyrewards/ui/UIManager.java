@@ -1,6 +1,5 @@
-package com.ixbob.somanyrewards.manager;
+package com.ixbob.somanyrewards.ui;
 
-import com.ixbob.somanyrewards.ui.BasicUI;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
