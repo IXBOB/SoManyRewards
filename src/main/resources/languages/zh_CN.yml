@@ -1,1 +1,10 @@
 "test": "我是中文"
+"basic_playtime_node_normal_display_name": "§f#%s §e游玩 %s 分钟"
+"basic_playtime_node_normal_display_lore1_received": "§r§c已领取"
+"basic_playtime_node_normal_display_lore1_not_received": "§r§a§l点击领取"
+"basic_playtime_node_normal_display_lore1_unable_receive": "§r§7未满足条件"
+"basic_playtime_node_normal_display_lore2": "§r§b奖励: "
+
+
+
+

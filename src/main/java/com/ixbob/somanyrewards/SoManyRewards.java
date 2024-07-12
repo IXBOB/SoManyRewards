@@ -2,6 +2,7 @@ package com.ixbob.somanyrewards;
 
 import com.ixbob.somanyrewards.command.RewardCommand;
 import com.ixbob.somanyrewards.command.RewardCommandTabCompleter;
+import com.ixbob.somanyrewards.config.ConfigHolder;
 import com.ixbob.somanyrewards.lang.Language;
 import com.ixbob.somanyrewards.listener.OnPlayerClickInventoryListener;
 import com.ixbob.somanyrewards.listener.OnPlayerCloseInventoryListener;
@@ -33,6 +34,8 @@ public final class SoManyRewards extends JavaPlugin {
                 new OnPlayerJoinListener(),
                 new OnPlayerLeaveListener()
         );
+
+        ConfigHolder.getInstance().loadData();
     }
 
     @Override

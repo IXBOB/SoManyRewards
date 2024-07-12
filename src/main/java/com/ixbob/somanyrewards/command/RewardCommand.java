@@ -3,6 +3,7 @@ package com.ixbob.somanyrewards.command;
 import com.ixbob.somanyrewards.ui.UIManager;
 import com.ixbob.somanyrewards.ui.RewardOfBasicGameTimeUI;
 import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,6 +18,8 @@ public class RewardCommand implements CommandExecutor {
         if (sender instanceof Player player) {
             if (subs[0].equals("BasicGameTime")) {
                 RewardOfBasicGameTimeUI basicGameTimeUI = new RewardOfBasicGameTimeUI(player, 3, 2, 0);
+                int playTimeMinutes = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+
                 basicGameTimeUI.setDisplayItem(0, 0, new ItemStack(Material.GOLD_INGOT));
                 basicGameTimeUI.setDisplayItem(0, 1, new ItemStack(Material.PAPER));
                 basicGameTimeUI.setDisplayItem(1, 0, new ItemStack(Material.DIAMOND));
