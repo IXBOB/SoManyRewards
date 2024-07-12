@@ -1,2 +1,11 @@
-#auto_generated
-played_time: []
+Rewards:
+  BasicPlayTime:
+    #(minute) Defines how long the interval is, displayed as an item in the BasicGameTime GUI.
+    each_time_period_shown: 20
+    #Normal rewards are distributed to each normal node from top to bottom in a loop.
+    normal_rewards:
+      [[]]
+    #Special rewards will be inserted into the GUI as a separate node at the defined time.
+    #If the node conflicts with normal rewards, the special rewards node will overwrite the normal rewards node.
+    special_rewards:
+      [[]]
