@@ -1,1 +1,11 @@
 "test": "im English"
+
+#custom_config
+#normal_rewards
+"basic_playtime_node_normal_diamond_plus_1": "§r§fDiamond * 1"
+"basic_playtime_node_normal_emerald_plus_1": "§r§fEmerald * 1"
+"basic_playtime_node_normal_iron_ingot_plus_1": "§r§fIron Ingot * 1"
+#special_rewards
+"basic_playtime_node_special_carrot_plus_9": "§r§fCarrot * 9"
+"basic_playtime_node_special_snowball_plus_9": "§r§fSnowball * 9"
+"basic_playtime_node_special_gold_block_plus_9": "§r§fGold Block * 9"

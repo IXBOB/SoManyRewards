@@ -67,4 +67,24 @@ public class ConfigHolder {
         }
         return result;
     }
+
+    public ArrayList<ArrayList<HashMap<String, ?>>> getNormalRewards() {
+        return normalRewards;
+    }
+
+    public ArrayList<ArrayList<HashMap<String, ?>>> getSpecialRewards() {
+        return specialRewards;
+    }
+
+    public int getEachTimePeriodShown() {
+        return config_eachTimePeriodShown;
+    }
+
+    public Material getNormalRewardsDefaultDisplayMaterial() {
+        return config_normalRewardsDefaultDisplayMaterial;
+    }
+
+    public Material getSpecialRewardsDefaultDisplayMaterial() {
+        return config_specialRewardsDefaultDisplayMaterial;
+    }
 }

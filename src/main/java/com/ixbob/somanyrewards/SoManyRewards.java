@@ -4,10 +4,7 @@ import com.ixbob.somanyrewards.command.RewardCommand;
 import com.ixbob.somanyrewards.command.RewardCommandTabCompleter;
 import com.ixbob.somanyrewards.config.ConfigHolder;
 import com.ixbob.somanyrewards.lang.Language;
-import com.ixbob.somanyrewards.listener.OnPlayerClickInventoryListener;
-import com.ixbob.somanyrewards.listener.OnPlayerCloseInventoryListener;
-import com.ixbob.somanyrewards.listener.OnPlayerJoinListener;
-import com.ixbob.somanyrewards.listener.OnPlayerLeaveListener;
+import com.ixbob.somanyrewards.listener.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,10 +29,12 @@ public final class SoManyRewards extends JavaPlugin {
                 new OnPlayerClickInventoryListener(),
                 new OnPlayerCloseInventoryListener(),
                 new OnPlayerJoinListener(),
-                new OnPlayerLeaveListener()
+                new OnPlayerLeaveListener(),
+                new OnPlayerClaimedGameTimeChangeListener()
         );
 
         ConfigHolder.getInstance().loadData();
+        System.out.println(SoManyRewards.getInstance().getDataFolder().getAbsolutePath());
     }
 
     @Override

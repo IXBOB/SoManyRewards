@@ -18,10 +18,12 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
 
     public enum ButtonRegistriesImpl implements BasicPageableUI.ButtonRegistries {
         HELLO_WORLD(0, 0, ClickType.LEFT, new HelloWorldLeftButtonRunnable(false)),
-        NEXT_PAGE(0, 1, ClickType.LEFT, new NextPageLeftButtonRunnable(true)),
+        NEXT_PAGE_1(0, 22, ClickType.LEFT, new NextPageLeftButtonRunnable(true)),
+//        NEXT_PAGE_2(1, 22, ClickType.LEFT, new NextPageLeftButtonRunnable(true)),
+//        NEXT_PAGE_3(2, 22, ClickType.LEFT, new NextPageLeftButtonRunnable(true)),
 
         BYEBYE_WORLD(1, 0, ClickType.LEFT, new ByebyeWorldLeftButtonRunnable(false)),
-        LAST_PAGE(1, 1, ClickType.LEFT, new LastPageLeftButtonRunnable(true));
+        LAST_PAGE(1, 22, ClickType.LEFT, new LastPageLeftButtonRunnable(true));
 
         private final int pageIndex;
         private final int index;

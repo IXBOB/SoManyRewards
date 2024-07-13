@@ -5,6 +5,15 @@
 "basic_playtime_node_normal_display_lore1_unable_receive": "§r§7未满足条件"
 "basic_playtime_node_normal_display_lore2": "§r§b奖励: "
 
+#custom_config
+#normal_rewards
+"basic_playtime_node_normal_diamond_plus_1": "§r§f钻石 * 1"
+"basic_playtime_node_normal_emerald_plus_1": "§r§f绿宝石 * 1"
+"basic_playtime_node_normal_iron_ingot_plus_1": "§r§f铁锭 * 1"
+#special_rewards
+"basic_playtime_node_special_carrot_plus_9": "§r§f胡萝卜 * 9"
+"basic_playtime_node_special_snowball_plus_9": "§r§f雪球 * 9"
+"basic_playtime_node_special_gold_block_plus_9": "§r§f金块 * 9"
 
 
 

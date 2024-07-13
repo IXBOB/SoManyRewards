@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
 
+    private int pageAmount;
     private int displayingPageIndex;
     private final ArrayList<ArrayList<Integer>> leftButtonsWithPages = new ArrayList<>();
     private final ArrayList<ArrayList<Integer>> rightButtonsWithPages = new ArrayList<>();
@@ -21,6 +22,7 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
 
     public BasicPageableUI(Player owner, int lineAmount, int pageAmount, int displayingPageIndex) {
         super(lineAmount, owner);
+        this.pageAmount = pageAmount;
         for (int i = 1; i <= pageAmount; i++) {
             itemsMapWithPages.add(new HashMap<>());
             leftButtonsWithPages.add(new ArrayList<>());
@@ -75,6 +77,7 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
     @Override
     public void setDisplayingPage(int pageIndex) {
         if (pageIndex < 0) throw new IllegalStateException("page index cannot less than 0!");
+        if (pageIndex >= pageAmount) throw new IllegalStateException("page index out of bounds!");
         this.displayingPageIndex = pageIndex;
         initOrRefreshInventoryContents();
     }
