@@ -96,20 +96,20 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
         return displayingPageIndex;
     }
 
-    public void addLeftButton(int page, int index, ButtonRegistries buttonRegistry) {
-        leftButtonsWithPages.get(page).put(index, buttonRegistry);
+    public void addButton(int page, int index, ClickType clickType, ButtonRegistries buttonRegistry) {
+        if (clickType == ClickType.LEFT) {
+            leftButtonsWithPages.get(page).put(index, buttonRegistry);
+        } else if (clickType == ClickType.RIGHT) {
+            rightButtonsWithPages.get(page).put(index, buttonRegistry);
+        }
     }
 
-    public void removeLeftButton(int page, int index) {
-        leftButtonsWithPages.get(page).remove(index);
-    }
-
-    public void addRightButton(int page, int index, ButtonRegistries buttonRegistry) {
-        rightButtonsWithPages.get(page).put(index, buttonRegistry);
-    }
-
-    public void removeRightButton(int page, int index) {
-        rightButtonsWithPages.get(page).remove(index);
+    public void removeButton(int page, int index, ClickType clickType) {
+        if (clickType == ClickType.LEFT) {
+            leftButtonsWithPages.get(page).remove(index);
+        } else if (clickType == ClickType.RIGHT) {
+            rightButtonsWithPages.get(page).remove(index);
+        }
     }
 
     public interface ButtonRegistries {

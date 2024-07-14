@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -65,8 +66,8 @@ public class RewardCommand implements CommandExecutor {
                 //仅演示用，后续删除
                 basicGameTimeUI.setDisplayItem(0, 22, ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), "下一页"));
                 basicGameTimeUI.setDisplayItem(1, 22, ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), "上一页"));
-                basicGameTimeUI.addLeftButton(0, 22, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.NEXT_PAGE_1);
-                basicGameTimeUI.addLeftButton(1, 22, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.LAST_PAGE);
+                basicGameTimeUI.addButton(0, 22, ClickType.LEFT, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.NEXT_PAGE);
+                basicGameTimeUI.addButton(1, 22, ClickType.LEFT, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.LAST_PAGE);
                 UIManager.getInstance().openUI(player, basicGameTimeUI);
             }
         }
