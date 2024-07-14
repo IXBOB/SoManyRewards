@@ -3,7 +3,6 @@ package com.ixbob.somanyrewards.ui;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
 
 public class RewardOfBasicGameTimeUI extends BasicPageableUI {
 
@@ -17,36 +16,18 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
     }
 
     public enum ButtonRegistriesImpl implements BasicPageableUI.ButtonRegistries {
-        HELLO_WORLD(0, 0, ClickType.LEFT, new HelloWorldLeftButtonRunnable(false)),
-        NEXT_PAGE_1(0, 22, ClickType.LEFT, new NextPageLeftButtonRunnable(true)),
+        HELLO_WORLD(new HelloWorldLeftButtonRunnable(false)),
+        NEXT_PAGE_1(new NextPageLeftButtonRunnable(true)),
 //        NEXT_PAGE_2(1, 22, ClickType.LEFT, new NextPageLeftButtonRunnable(true)),
 //        NEXT_PAGE_3(2, 22, ClickType.LEFT, new NextPageLeftButtonRunnable(true)),
 
-        BYEBYE_WORLD(1, 0, ClickType.LEFT, new ByebyeWorldLeftButtonRunnable(false)),
-        LAST_PAGE(1, 22, ClickType.LEFT, new LastPageLeftButtonRunnable(true));
+        BYEBYE_WORLD(new ByebyeWorldLeftButtonRunnable(false)),
+        LAST_PAGE(new LastPageLeftButtonRunnable(true));
 
-        private final int pageIndex;
-        private final int index;
-        private final ClickType clickType;
         private final ButtonRunnable action;
 
-        ButtonRegistriesImpl(int pageIndex, int index, ClickType clickType, ButtonRunnable action) {
-            this.pageIndex = pageIndex;
-            this.index = index;
-            this.clickType = clickType;
+        ButtonRegistriesImpl(ButtonRunnable action) {
             this.action = action;
-        }
-
-        public int getPageIndex() {
-            return pageIndex;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public ClickType getClickType() {
-            return clickType;
         }
 
         public ButtonRunnable getAction() {

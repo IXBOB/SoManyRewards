@@ -1,6 +1,7 @@
 package com.ixbob.somanyrewards.ui;
 
 import com.ixbob.somanyrewards.SoManyRewards;
+import com.ixbob.somanyrewards.util.LogUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -8,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +18,8 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
 
     private int pageAmount;
     private int displayingPageIndex;
-    private final ArrayList<ArrayList<Integer>> leftButtonsWithPages = new ArrayList<>();
-    private final ArrayList<ArrayList<Integer>> rightButtonsWithPages = new ArrayList<>();
+    private final ArrayList<HashMap<Integer, ButtonRegistries>> leftButtonsWithPages = new ArrayList<>();
+    private final ArrayList<HashMap<Integer, ButtonRegistries>> rightButtonsWithPages = new ArrayList<>();
     private final ArrayList<HashMap<Integer, ItemStack>> itemsMapWithPages = new ArrayList<>();
 
     public BasicPageableUI(Player owner, int lineAmount, int pageAmount, int displayingPageIndex) {
@@ -25,8 +27,8 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
         this.pageAmount = pageAmount;
         for (int i = 1; i <= pageAmount; i++) {
             itemsMapWithPages.add(new HashMap<>());
-            leftButtonsWithPages.add(new ArrayList<>());
-            rightButtonsWithPages.add(new ArrayList<>());
+            leftButtonsWithPages.add(new HashMap<>());
+            rightButtonsWithPages.add(new HashMap<>());
         }
         this.displayingPageIndex = displayingPageIndex;
     }
@@ -36,25 +38,14 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
         super.onClick(index, clickType, event);
         if ( (clickType == ClickType.LEFT && checkLeftButtonIfContains(displayingPageIndex, index))
                 || (clickType == ClickType.RIGHT && checkRightButtonIfContains(displayingPageIndex, index)) ) {
-            boolean success = searchAndPerformButtonAction(displayingPageIndex, index, clickType);
-            if (!success) {
-                throw new IllegalArgumentException("button action not registered in ButtonRegistries enum!");
-            }
+            searchAndPerformButtonAction(displayingPageIndex, index, clickType);
         }
     }
 
-    private boolean searchAndPerformButtonAction(int pageIndex, int index, ClickType clickType) {
-        for (ButtonRegistries buttonRegistry : getButtonRegistries()) {
-            if (buttonRegistry.getPageIndex() == pageIndex
-                    && buttonRegistry.getIndex() == index
-                    && buttonRegistry.getClickType() == clickType) {
-                ButtonRunnable action = buttonRegistry.getAction();
-                if (action.needRunnerPlayer) action.setRunnerPlayer(owner);
-                Bukkit.getScheduler().runTask(SoManyRewards.getInstance(), action);
-                return true;
-            }
-        }
-        return false;
+    private void searchAndPerformButtonAction(int pageIndex, int index, ClickType clickType) {
+        ButtonRunnable action = getAppliedButtonActionRunnable(pageIndex, index, clickType);
+        if (action.needRunnerPlayer) action.setRunnerPlayer(owner);
+        Bukkit.getScheduler().runTask(SoManyRewards.getInstance(), action);
     }
 
     public void setDisplayItem(int pageIndex, int index, ItemStack item) {
@@ -67,11 +58,11 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
     }
 
     public boolean checkLeftButtonIfContains(int pageIndex, int buttonIndex) {
-        return leftButtonsWithPages.get(pageIndex).contains(buttonIndex);
+        return leftButtonsWithPages.get(pageIndex).containsKey(buttonIndex);
     }
 
     public boolean checkRightButtonIfContains(int pageIndex, int buttonIndex) {
-        return rightButtonsWithPages.get(pageIndex).contains(buttonIndex);
+        return rightButtonsWithPages.get(pageIndex).containsKey(buttonIndex);
     }
 
     @Override
@@ -105,16 +96,16 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
         return displayingPageIndex;
     }
 
-    public void addLeftButton(int page, int index) {
-        leftButtonsWithPages.get(page).add(index);
+    public void addLeftButton(int page, int index, ButtonRegistries buttonRegistry) {
+        leftButtonsWithPages.get(page).put(index, buttonRegistry);
     }
 
     public void removeLeftButton(int page, int index) {
         leftButtonsWithPages.get(page).remove(index);
     }
 
-    public void addRightButton(int page, int index) {
-        rightButtonsWithPages.get(page).add(index);
+    public void addRightButton(int page, int index, ButtonRegistries buttonRegistry) {
+        rightButtonsWithPages.get(page).put(index, buttonRegistry);
     }
 
     public void removeRightButton(int page, int index) {
@@ -122,11 +113,24 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
     }
 
     public interface ButtonRegistries {
-        int getPageIndex();
-        int getIndex();
-        ClickType getClickType();
         ButtonRunnable getAction();
     }
 
     protected abstract ButtonRegistries[] getButtonRegistries();
+
+    /**
+     * get button action runnable,
+     * which should be applied to the specific inventory grid by using addLeftButton() or addRightButton()
+     */
+    public ButtonRunnable getAppliedButtonActionRunnable(int page, int index, @NotNull ClickType clickType) {
+        ButtonRunnable result = null;
+        try {
+            if (clickType == ClickType.LEFT) {
+                result = leftButtonsWithPages.get(page).get(index).getAction();
+            } else if (clickType == ClickType.RIGHT) {
+                result = rightButtonsWithPages.get(page).get(index).getAction();
+            }
+        } catch (Exception e) { LogUtils.logFatal(e); }
+        return result;
+    }
 }

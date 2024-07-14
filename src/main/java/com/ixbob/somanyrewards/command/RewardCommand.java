@@ -7,7 +7,6 @@ import com.ixbob.somanyrewards.playerdata.PlayerDataManager;
 import com.ixbob.somanyrewards.ui.UIManager;
 import com.ixbob.somanyrewards.ui.RewardOfBasicGameTimeUI;
 import org.bukkit.Material;
-import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,6 +26,7 @@ public class RewardCommand implements CommandExecutor {
             if (subs[0].equals("BasicGameTime")) {
                 RewardOfBasicGameTimeUI basicGameTimeUI = new RewardOfBasicGameTimeUI(player, 3, 2, 0);
                 PlayerDataBlock dataBlock = PlayerDataManager.getInstance().getPlayerDataBlock(player);
+                //TODO: use Statistics when release. this is for test only now.
                 int playTimeMinutes = 225;
                 int claimedBasicPlayTime = dataBlock.getClaimedBasicGameTime();
                 int eachTimePeriodShown = configHolder.getEachTimePeriodShown();
@@ -65,9 +65,8 @@ public class RewardCommand implements CommandExecutor {
                 //仅演示用，后续删除
                 basicGameTimeUI.setDisplayItem(0, 22, ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), "下一页"));
                 basicGameTimeUI.setDisplayItem(1, 22, ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), "上一页"));
-                //TODO: 直接在此处绑定调用的按钮功能，而不是在 RewardOfBasicGameTimeUI.ButtonRegistriesImpl 中写死
-                basicGameTimeUI.addLeftButton(0, 22);
-                basicGameTimeUI.addLeftButton(1, 22);
+                basicGameTimeUI.addLeftButton(0, 22, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.NEXT_PAGE_1);
+                basicGameTimeUI.addLeftButton(1, 22, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.LAST_PAGE);
                 UIManager.getInstance().openUI(player, basicGameTimeUI);
             }
         }
