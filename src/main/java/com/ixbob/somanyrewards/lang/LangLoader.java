@@ -27,7 +27,8 @@ public class LangLoader {
                 translationMap.put(translation, translations.getString(translation));
             }
         }
-        return translationMap.get(key);
+        System.out.println(translationMap.get(key));
+        return (translationMap.get(key) == null) ? key : translationMap.get(key);
 
     }
 

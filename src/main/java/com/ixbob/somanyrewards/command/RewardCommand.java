@@ -1,5 +1,6 @@
 package com.ixbob.somanyrewards.command;
 
+import com.ixbob.somanyrewards.lang.LangManager;
 import com.ixbob.somanyrewards.util.ItemUtils;
 import com.ixbob.somanyrewards.config.ConfigHolder;
 import com.ixbob.somanyrewards.playerdata.PlayerDataBlock;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RewardCommand implements CommandExecutor {
 
@@ -32,42 +34,56 @@ public class RewardCommand implements CommandExecutor {
                 int claimedBasicPlayTime = dataBlock.getClaimedBasicGameTime();
                 int eachTimePeriodShown = configHolder.getEachTimePeriodShown();
                 ArrayList<Integer> specialRewardTimeList = new ArrayList<>();
-                System.out.println(configHolder.getSpecialRewards());
                 configHolder.getSpecialRewards().forEach(rewardListMap -> {
-                    int displayWhen = (int) rewardListMap.get(2).get("display_when");
-                    System.out.println(displayWhen);
+                    System.out.println(rewardListMap);
+                    int displayWhen = (int) rewardListMap.get(3).get("display_when");
                     specialRewardTimeList.add(displayWhen);
                 });
-                int playedNeedLeastNodeAmount = (int) specialRewardTimeList.stream().filter(element -> element <= playTimeMinutes).count()
+                int playedNeedLeastNodeAmount = (int) specialRewardTimeList.stream().filter(
+                        element -> element <= playTimeMinutes).count()
                         + (playTimeMinutes / eachTimePeriodShown);
-                System.out.println(playedNeedLeastNodeAmount);
                 int createNodeAmount = playedNeedLeastNodeAmount + (9 - playedNeedLeastNodeAmount % 9);
                 int createPageAmount = createNodeAmount / 9;
-                System.out.println(createNodeAmount);
-                System.out.println(createPageAmount);
 
-                final ItemStack NORMAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(configHolder.getNormalRewardsDefaultDisplayMaterial());
-                final ItemStack SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(configHolder.getSpecialRewardsDefaultDisplayMaterial());
+                //start initializing UI.
+                final ItemStack NORMAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
+                        configHolder.getNormalRewardsDefaultDisplayMaterial());
+                final ItemStack SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
+                        configHolder.getSpecialRewardsDefaultDisplayMaterial());
                 int creatingNodeTime = 0;
+                int createdSpecialNodeAmount = 0;
+                int createdNormalNodeAmount = 0;
                 for (int page = 0; page < createPageAmount; page++) {
                     for (int index = 0; index <= 8; index++) {
                         if (!specialRewardTimeList.isEmpty()
                                 && creatingNodeTime <= specialRewardTimeList.get(0)
                                 && specialRewardTimeList.get(0) <= creatingNodeTime + eachTimePeriodShown) {
-                            basicGameTimeUI.setDisplayItem(page, index, ItemUtils.getNamedItemStack(SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK, String.valueOf(specialRewardTimeList.get(0))));
+                            System.out.println(configHolder.getSpecialRewards().get(createdSpecialNodeAmount));
+                            basicGameTimeUI.setDisplayItem(page, index, ItemUtils.getNamedItemStack(
+                                    SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK, player,
+                                    (String) configHolder.getSpecialRewards().get(createdSpecialNodeAmount).get(1).get("local_item_title"),
+                                    (ArrayList<String>) configHolder.getSpecialRewards().get(createdSpecialNodeAmount).get(2).get("local_item_lores")));
                             specialRewardTimeList.remove(0);
+                            createdSpecialNodeAmount++;
                         } else {
                             creatingNodeTime += eachTimePeriodShown;
-                            basicGameTimeUI.setDisplayItem(page, index, ItemUtils.getNamedItemStack(NORMAL_REWARDS_DEFAULT_DISPLAY_STACK, String.valueOf(creatingNodeTime)));
+                            basicGameTimeUI.setDisplayItem(page, index, ItemUtils.getNamedItemStack(
+                                    NORMAL_REWARDS_DEFAULT_DISPLAY_STACK, player,
+                                    (String) configHolder.getNormalRewards().get(createdNormalNodeAmount % configHolder.getNormalRewards().size()).get(1).get("local_item_title"),
+                                    (ArrayList<String>) configHolder.getNormalRewards().get(createdNormalNodeAmount % configHolder.getNormalRewards().size()).get(2).get("local_item_lores")));
+                            createdNormalNodeAmount++;
                         }
                     }
                 }
 
                 //仅演示用，后续删除
-                basicGameTimeUI.setDisplayItem(0, 22, ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), "下一页"));
-                basicGameTimeUI.setDisplayItem(1, 22, ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), "上一页"));
+                basicGameTimeUI.setDisplayItem(0, 22,
+                        ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), player, "下一页", null));
+                basicGameTimeUI.setDisplayItem(1, 22,
+                        ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), player, "上一页", new ArrayList<>(List.of("test1", "test2"))));
                 basicGameTimeUI.addButton(0, 22, ClickType.LEFT, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.NEXT_PAGE);
                 basicGameTimeUI.addButton(1, 22, ClickType.LEFT, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.LAST_PAGE);
+
                 UIManager.getInstance().openUI(player, basicGameTimeUI);
             }
         }

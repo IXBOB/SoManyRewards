@@ -54,11 +54,14 @@ public class ConfigHolder {
         for (int i = 0; i < configSection.getKeys(false).size(); i++) {
             result.add(new ArrayList<>());
             HashMap<String, List<String>> mapRewards = new HashMap<>();
-            HashMap<String, List<String>> mapLocalTexts = new HashMap<>();
+            HashMap<String, String> mapLocalItemTitle = new HashMap<>();
+            HashMap<String, List<String>> mapLocalItemLores = new HashMap<>();
             mapRewards.put("rewards", configSection.getStringList(i + ".rewards"));
-            mapLocalTexts.put("local_texts", configSection.getStringList(i + ".local_texts"));
+            mapLocalItemTitle.put("local_item_title", configSection.getString(i + ".local_item_title"));
+            mapLocalItemLores.put("local_item_lores", configSection.getStringList(i + ".local_item_lores"));
             result.get(i).add(mapRewards);
-            result.get(i).add(mapLocalTexts);
+            result.get(i).add(mapLocalItemTitle);
+            result.get(i).add(mapLocalItemLores);
             if (configSection.getName().equals("special_rewards")) {
                 HashMap<String, Integer> mapDisplayWhen = new HashMap<>();
                 mapDisplayWhen.put("display_when", configSection.getInt(i + ".display_when"));
