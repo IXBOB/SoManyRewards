@@ -2,12 +2,12 @@ package com.ixbob.somanyrewards.ui.button;
 
 import org.bukkit.entity.Player;
 
-public class ClaimRewardButton extends BasicButton {
+public class ClaimBasicPlayTimeRewardButton extends BasicButton {
 
     private final int pageIndex;
     private final int invIndex;
 
-    public ClaimRewardButton(Player player, int pageIndex, int invIndex) {
+    public ClaimBasicPlayTimeRewardButton(Player player, int pageIndex, int invIndex) {
         super(player);
         this.pageIndex = pageIndex;
         this.invIndex = invIndex;

@@ -2,20 +2,20 @@ package com.ixbob.somanyrewards.ui.button;
 
 import org.bukkit.entity.Player;
 
-public class ClaimRewardButtonFactory implements ButtonFactory {
+public class ClaimBasicPlayTimeRewardButtonFactory implements ButtonFactory {
 
-    private static final ClaimRewardButtonFactory instance = new ClaimRewardButtonFactory();
+    private static final ClaimBasicPlayTimeRewardButtonFactory instance = new ClaimBasicPlayTimeRewardButtonFactory();
     private Player player;
     private int pageIndex;
     private int invIndex;
 
-    public static ClaimRewardButtonFactory getInstance() {
+    public static ClaimBasicPlayTimeRewardButtonFactory getInstance() {
         return instance;
     }
 
     @Override
     public BasicButton create() {
-        return new ClaimRewardButton(player, pageIndex, invIndex);
+        return new ClaimBasicPlayTimeRewardButton(player, pageIndex, invIndex);
     }
 
     @Override
