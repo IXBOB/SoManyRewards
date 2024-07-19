@@ -83,13 +83,13 @@ public class RewardCommand implements CommandExecutor {
                 basicGameTimeUI.setDisplayItem(1, 22,
                         ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), player, "上一页", new ArrayList<>(List.of("test1", "test2"))));
                 basicGameTimeUI.addButton(0, 22, ClickType.LEFT, PageControlButtonFactory.getInstance()
-                        .setData(0,22)
+                        .setType(PageControlButtonFactory.ButtonType.NEXT)
                         .setPlayer(player)
-                        .create(PageControlButtonFactory.ButtonType.NEXT));
+                        .create());
                 basicGameTimeUI.addButton(1, 22, ClickType.LEFT, PageControlButtonFactory.getInstance()
-                        .setData(1, 22)
+                        .setType(PageControlButtonFactory.ButtonType.PREVIOUS)
                         .setPlayer(player)
-                        .create(PageControlButtonFactory.ButtonType.PREVIOUS));
+                        .create());
 
                 UIManager.getInstance().openUI(player, basicGameTimeUI);
             }

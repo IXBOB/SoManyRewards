@@ -1,6 +1,13 @@
 package com.ixbob.somanyrewards.ui.button;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface IPageControlButtonFactory {
 
-    BasicButton create(PageControlButtonFactory.ButtonType buttonType);
+    ButtonFactory setType(@NotNull ButtonType buttonType);
+
+    enum ButtonType {
+        NEXT,
+        PREVIOUS
+    }
 }

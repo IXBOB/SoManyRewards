@@ -7,24 +7,17 @@ public class PageControlButtonFactory implements ButtonFactory, IPageControlButt
 
     private static final PageControlButtonFactory instance = new PageControlButtonFactory();
     private Player player;
-    private int pageIndex;
-    private int invIndex;
+    private ButtonType buttonType;
 
     public static PageControlButtonFactory getInstance() {
         return instance;
     }
 
     @Override
-    @Deprecated
     public BasicButton create() {
-        throw new IllegalArgumentException("Please use create(ButtonType) instead");
-    }
-
-    @Override
-    public BasicButton create(ButtonType buttonType) {
         return switch (buttonType) {
-            case NEXT -> new NextPageButton(player, pageIndex, invIndex);
-            case PREVIOUS -> new PreviousPageButton(player, pageIndex, invIndex);
+            case NEXT -> new NextPageButton(player);
+            case PREVIOUS -> new PreviousPageButton(player);
         };
     }
 
@@ -34,14 +27,9 @@ public class PageControlButtonFactory implements ButtonFactory, IPageControlButt
         return this;
     }
 
-    public PageControlButtonFactory setData(int pageIndex, int invIndex) {
-        this.pageIndex = pageIndex;
-        this.invIndex = invIndex;
+    @Override
+    public PageControlButtonFactory setType(@NotNull ButtonType buttonType) {
+        this.buttonType = buttonType;
         return this;
-    }
-
-    public enum ButtonType {
-        NEXT,
-        PREVIOUS
     }
 }

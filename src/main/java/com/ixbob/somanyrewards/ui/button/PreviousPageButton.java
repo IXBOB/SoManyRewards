@@ -7,13 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class PreviousPageButton extends BasicButton {
 
-    private final int pageIndex;
-    private final int invIndex;
-
-    public PreviousPageButton(@NotNull Player player, int pageIndex, int invIndex) {
+    public PreviousPageButton(@NotNull Player player) {
         super(player);
-        this.pageIndex = pageIndex;
-        this.invIndex = invIndex;
     }
 
     @Override
@@ -21,13 +16,5 @@ public class PreviousPageButton extends BasicButton {
         if (UIManager.getInstance().getOpeningCustomUI(super.getPlayer()) instanceof IPageableUI ui) {
             ui.lastDisplayingPage();
         }
-    }
-
-    public int getPageIndex() {
-        return pageIndex;
-    }
-
-    public int getInvIndex() {
-        return invIndex;
     }
 }
