@@ -4,5 +4,10 @@ public interface IPageableUI {
 
     void setDisplayingPage(int page);
 
+    void nextDisplayingPage();
+
+    void lastDisplayingPage();
+
     int getDisplayingPage();
+
 }

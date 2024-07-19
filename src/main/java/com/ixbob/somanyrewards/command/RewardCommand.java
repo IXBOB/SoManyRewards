@@ -1,6 +1,6 @@
 package com.ixbob.somanyrewards.command;
 
-import com.ixbob.somanyrewards.lang.LangManager;
+import com.ixbob.somanyrewards.ui.button.PageControlButtonFactory;
 import com.ixbob.somanyrewards.util.ItemUtils;
 import com.ixbob.somanyrewards.config.ConfigHolder;
 import com.ixbob.somanyrewards.playerdata.PlayerDataBlock;
@@ -24,6 +24,7 @@ public class RewardCommand implements CommandExecutor {
     private final ConfigHolder configHolder = ConfigHolder.getInstance();
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String exactCommandStr, @NotNull String[] subs) {
         if (sender instanceof Player player) {
             if (subs[0].equals("BasicGameTime")) {
@@ -81,8 +82,14 @@ public class RewardCommand implements CommandExecutor {
                         ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), player, "下一页", null));
                 basicGameTimeUI.setDisplayItem(1, 22,
                         ItemUtils.getNamedItemStack(new ItemStack(Material.PAPER), player, "上一页", new ArrayList<>(List.of("test1", "test2"))));
-                basicGameTimeUI.addButton(0, 22, ClickType.LEFT, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.NEXT_PAGE);
-                basicGameTimeUI.addButton(1, 22, ClickType.LEFT, RewardOfBasicGameTimeUI.ButtonRegistriesImpl.LAST_PAGE);
+                basicGameTimeUI.addButton(0, 22, ClickType.LEFT, PageControlButtonFactory.getInstance()
+                        .setData(0,22)
+                        .setPlayer(player)
+                        .create(PageControlButtonFactory.ButtonType.NEXT));
+                basicGameTimeUI.addButton(1, 22, ClickType.LEFT, PageControlButtonFactory.getInstance()
+                        .setData(1, 22)
+                        .setPlayer(player)
+                        .create(PageControlButtonFactory.ButtonType.PREVIOUS));
 
                 UIManager.getInstance().openUI(player, basicGameTimeUI);
             }

@@ -1,6 +1,7 @@
 package com.ixbob.somanyrewards.ui;
 
 import com.ixbob.somanyrewards.SoManyRewards;
+import com.ixbob.somanyrewards.ui.button.BasicButton;
 import com.ixbob.somanyrewards.util.LogUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -16,10 +17,10 @@ import java.util.HashMap;
 
 public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
 
-    private int pageAmount;
+    private final int pageAmount;
     private int displayingPageIndex;
-    private final ArrayList<HashMap<Integer, ButtonRegistries>> leftButtonsWithPages = new ArrayList<>();
-    private final ArrayList<HashMap<Integer, ButtonRegistries>> rightButtonsWithPages = new ArrayList<>();
+    private final ArrayList<HashMap<Integer, BasicButton>> leftButtonsWithPages = new ArrayList<>();
+    private final ArrayList<HashMap<Integer, BasicButton>> rightButtonsWithPages = new ArrayList<>();
     private final ArrayList<HashMap<Integer, ItemStack>> itemsMapWithPages = new ArrayList<>();
 
     public BasicPageableUI(Player owner, int lineAmount, int pageAmount, int displayingPageIndex) {
@@ -43,9 +44,8 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
     }
 
     private void searchAndPerformButtonAction(int pageIndex, int index, ClickType clickType) {
-        ButtonRunnable action = getAppliedButtonActionRunnable(pageIndex, index, clickType);
-        if (action.needRunnerPlayer) action.setRunnerPlayer(owner);
-        Bukkit.getScheduler().runTask(SoManyRewards.getInstance(), action);
+        BasicButton button = getAppliedButton(pageIndex, index, clickType);
+        Bukkit.getScheduler().runTask(SoManyRewards.getInstance(), button);
     }
 
     public void setDisplayItem(int pageIndex, int index, ItemStack item) {
@@ -73,10 +73,12 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
         initOrRefreshInventoryContents();
     }
 
+    @Override
     public void nextDisplayingPage() {
         setDisplayingPage(++this.displayingPageIndex);
     }
 
+    @Override
     public void lastDisplayingPage() {
         setDisplayingPage(--this.displayingPageIndex);
     }
@@ -96,11 +98,11 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
         return displayingPageIndex;
     }
 
-    public void addButton(int page, int index, ClickType clickType, ButtonRegistries buttonRegistry) {
+    public void addButton(int page, int index, ClickType clickType, BasicButton button) {
         if (clickType == ClickType.LEFT) {
-            leftButtonsWithPages.get(page).put(index, buttonRegistry);
+            leftButtonsWithPages.get(page).put(index, button);
         } else if (clickType == ClickType.RIGHT) {
-            rightButtonsWithPages.get(page).put(index, buttonRegistry);
+            rightButtonsWithPages.get(page).put(index, button);
         }
     }
 
@@ -112,23 +114,17 @@ public abstract class BasicPageableUI extends BasicUI implements IPageableUI {
         }
     }
 
-    public interface ButtonRegistries {
-        ButtonRunnable getAction();
-    }
-
-    protected abstract ButtonRegistries[] getButtonRegistries();
-
     /**
      * get button action runnable,
      * which should be applied to the specific inventory grid by using addLeftButton() or addRightButton()
      */
-    public ButtonRunnable getAppliedButtonActionRunnable(int page, int index, @NotNull ClickType clickType) {
-        ButtonRunnable result = null;
+    public BasicButton getAppliedButton(int page, int index, @NotNull ClickType clickType) {
+        BasicButton result = null;
         try {
             if (clickType == ClickType.LEFT) {
-                result = leftButtonsWithPages.get(page).get(index).getAction();
+                result = leftButtonsWithPages.get(page).get(index);
             } else if (clickType == ClickType.RIGHT) {
-                result = rightButtonsWithPages.get(page).get(index).getAction();
+                result = rightButtonsWithPages.get(page).get(index);
             }
         } catch (Exception e) { LogUtils.logFatal(e); }
         return result;

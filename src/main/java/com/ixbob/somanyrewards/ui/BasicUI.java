@@ -16,6 +16,7 @@ public abstract class BasicUI implements IBasicUI{
     protected Inventory inventory;
     private final int lineAmount;
     private final int maxIndex;
+    private int lastClickedIndex = -1;
     private final ArrayList<Integer> leftButtons = new ArrayList<>();
     private final ArrayList<Integer> rightButtons = new ArrayList<>();
     private final HashMap<Integer, ItemStack> itemsMap = new HashMap<>();
@@ -69,10 +70,11 @@ public abstract class BasicUI implements IBasicUI{
     }
 
     @Override
-    public void onClick(int index, ClickType type, InventoryClickEvent event) {
-        if (index > event.getRawSlot()) {
+    public void onClick(int rawSlotIndex, ClickType type, InventoryClickEvent event) {
+        if (rawSlotIndex > event.getRawSlot()) {
             return;
         }
+        this.lastClickedIndex = event.getRawSlot();
         event.setCancelled(true);
     }
 
