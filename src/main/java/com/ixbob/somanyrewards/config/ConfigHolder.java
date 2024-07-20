@@ -5,10 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class ConfigHolder {
 
     private static ConfigHolder instance;
@@ -18,8 +14,8 @@ public class ConfigHolder {
     private Material config_specialRewardsDefaultDisplayMaterial;
     private ConfigurationSection config_specialRewards;
 
-    private ArrayList<ArrayList<HashMap<String, ?>>> normalRewards;
-    private ArrayList<ArrayList<HashMap<String, ?>>> specialRewards;
+//    private ArrayList<ArrayList<HashMap<String, ?>>> normalRewards;
+//    private ArrayList<ArrayList<HashMap<String, ?>>> specialRewards;
 
     public static ConfigHolder getInstance() {
         if (instance == null) {
@@ -38,45 +34,15 @@ public class ConfigHolder {
         this.config_specialRewardsDefaultDisplayMaterial = Material.valueOf(rewardsOfBasicPlayTimeConfig.getString("special_rewards_default_display_material"));
         this.config_specialRewards = rewardsOfBasicPlayTimeConfig.getConfigurationSection("special_rewards");
 
-//        System.out.println(config_eachTimePeriodShown);
-//        System.out.println(config_normalRewardsDefaultDisplayMaterial);
-//        System.out.println(config_normalRewards.getKeys(false).size());
-
-        normalRewards = readFromLegacyConfigRewards(config_normalRewards);
-        specialRewards = readFromLegacyConfigRewards(config_specialRewards);
-
-        System.out.println(normalRewards.toString());
-        System.out.println(specialRewards.toString());
+        BasicGameTimeConfigSubHolder.getInstance().loadData();
     }
 
-    private ArrayList<ArrayList<HashMap<String, ?>>> readFromLegacyConfigRewards(ConfigurationSection configSection) {
-        ArrayList<ArrayList<HashMap<String, ?>>> result = new ArrayList<>();
-        for (int i = 0; i < configSection.getKeys(false).size(); i++) {
-            result.add(new ArrayList<>());
-            HashMap<String, List<String>> mapRewards = new HashMap<>();
-            HashMap<String, String> mapLocalItemTitle = new HashMap<>();
-            HashMap<String, List<String>> mapLocalItemLores = new HashMap<>();
-            mapRewards.put("rewards", configSection.getStringList(i + ".rewards"));
-            mapLocalItemTitle.put("local_item_title", configSection.getString(i + ".local_item_title"));
-            mapLocalItemLores.put("local_item_lores", configSection.getStringList(i + ".local_item_lores"));
-            result.get(i).add(mapRewards);
-            result.get(i).add(mapLocalItemTitle);
-            result.get(i).add(mapLocalItemLores);
-            if (configSection.getName().equals("special_rewards")) {
-                HashMap<String, Integer> mapDisplayWhen = new HashMap<>();
-                mapDisplayWhen.put("display_when", configSection.getInt(i + ".display_when"));
-                result.get(i).add(mapDisplayWhen);
-            }
-        }
-        return result;
+    public ConfigurationSection getLegacyConfigNormalRewards() {
+        return config_normalRewards;
     }
 
-    public ArrayList<ArrayList<HashMap<String, ?>>> getNormalRewards() {
-        return normalRewards;
-    }
-
-    public ArrayList<ArrayList<HashMap<String, ?>>> getSpecialRewards() {
-        return specialRewards;
+    public ConfigurationSection getLegacyConfigSpecialRewards() {
+        return config_specialRewards;
     }
 
     public int getEachTimePeriodShown() {

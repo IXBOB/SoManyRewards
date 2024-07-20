@@ -24,7 +24,6 @@ public class RewardCommand implements CommandExecutor {
     private final ConfigHolder configHolder = ConfigHolder.getInstance();
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String exactCommandStr, @NotNull String[] subs) {
         if (sender instanceof Player player) {
             if (subs[0].equals("BasicGameTime")) {
@@ -36,7 +35,6 @@ public class RewardCommand implements CommandExecutor {
                 int eachTimePeriodShown = configHolder.getEachTimePeriodShown();
                 ArrayList<Integer> specialRewardTimeList = new ArrayList<>();
                 configHolder.getSpecialRewards().forEach(rewardListMap -> {
-                    System.out.println(rewardListMap);
                     int displayWhen = (int) rewardListMap.get(3).get("display_when");
                     specialRewardTimeList.add(displayWhen);
                 });
@@ -59,7 +57,6 @@ public class RewardCommand implements CommandExecutor {
                         if (!specialRewardTimeList.isEmpty()
                                 && creatingNodeTime <= specialRewardTimeList.get(0)
                                 && specialRewardTimeList.get(0) <= creatingNodeTime + eachTimePeriodShown) {
-                            System.out.println(configHolder.getSpecialRewards().get(createdSpecialNodeAmount));
                             basicGameTimeUI.setDisplayItem(page, index, ItemUtils.getNamedItemStack(
                                     SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK, player,
                                     (String) configHolder.getSpecialRewards().get(createdSpecialNodeAmount).get(1).get("local_item_title"),

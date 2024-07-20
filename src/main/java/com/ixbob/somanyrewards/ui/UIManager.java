@@ -18,6 +18,7 @@ public class UIManager {
 
     public void openUI(Player player, BasicUI ui) {
         addUI(player, ui);
+        ui.buildUIInitialDisplay();
         player.openInventory(ui.getInventory());
     }
 

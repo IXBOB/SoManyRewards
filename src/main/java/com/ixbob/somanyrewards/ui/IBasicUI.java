@@ -6,6 +6,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public interface IBasicUI {
+    void buildUIInitialDisplay();
+
     void addLeftButton(int index);
 
     void addRightButton(int index);
