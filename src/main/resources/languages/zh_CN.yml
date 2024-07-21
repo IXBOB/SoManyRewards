@@ -1,4 +1,6 @@
 "test": "我是中文"
+"ui_display_previous_page": "◀ 上一页"
+"ui_display_next_page": "下一页 ▶"
 "basic_playtime_node_normal_display_name": "§f#%s §e游玩 %s 分钟"
 "basic_playtime_node_normal_display_lore1_received": "§r§c已领取"
 "basic_playtime_node_normal_display_lore1_not_received": "§r§a§l点击领取"

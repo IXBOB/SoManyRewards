@@ -14,7 +14,7 @@ public class ItemUtils {
 
     private static final LangManager langManager = LangManager.getInstance();
 
-    public static ItemStack getNamedItemStack(ItemStack itemStack, Player player, String title, @Nullable ArrayList<String> lores) {
+    public static ItemStack getNamedItemStack(ItemStack itemStack, Player player, String title, @Nullable List<String> lores) {
         ItemStack result = new ItemStack(itemStack);
         ItemMeta meta = itemStack.getItemMeta();
         System.out.println(title + "========");

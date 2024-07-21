@@ -1,5 +1,7 @@
 package com.ixbob.somanyrewards.ui.button;
 
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class ClaimBasicPlayTimeRewardButton extends BasicButton {
@@ -15,7 +17,7 @@ public class ClaimBasicPlayTimeRewardButton extends BasicButton {
 
     @Override
     public void run() {
-
+        Bukkit.broadcast(Component.text("领取奖励！"));
     }
 
     public int getPageIndex() {

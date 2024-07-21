@@ -1,4 +1,11 @@
 "test": "im English"
+"ui_display_previous_page": "◀ Previous Page"
+"ui_display_next_page": "Next Page ▶"
+"basic_playtime_node_normal_display_name": "§f#%s §ePlay for %s min"
+"basic_playtime_node_normal_display_lore1_received": "§r§cClaimed"
+"basic_playtime_node_normal_display_lore1_not_received": "§r§a§Click to Claim!"
+"basic_playtime_node_normal_display_lore1_unable_receive": "§r§7You haven't met the conditions!"
+"basic_playtime_node_normal_display_lore2": "§r§bRewards: "
 
 #custom_config
 #normal_rewards

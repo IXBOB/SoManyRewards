@@ -7,12 +7,13 @@ import com.ixbob.somanyrewards.util.LogUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class BasicGameTimeConfigSubHolder {
     private static final BasicGameTimeConfigSubHolder instance = new BasicGameTimeConfigSubHolder();
-    private List<BasicGameTimeConfigRewardsConfigBean> beans;
+    private final List<BasicGameTimeConfigRewardsConfigBean> beans = new ArrayList<>();
 
     public static BasicGameTimeConfigSubHolder getInstance() {
         return instance;
@@ -27,7 +28,7 @@ public class BasicGameTimeConfigSubHolder {
 
     public void addBean(@NotNull BasicGameTimeConfigRewardsConfigBean bean) {
         try {
-            if (getBean(bean.getType(), bean.getId()) != null) {
+            if (getBean(bean.getType(), bean.getId()) == null) {
                 beans.add(bean);
                 return;
             }
@@ -39,6 +40,13 @@ public class BasicGameTimeConfigSubHolder {
 
     public BasicGameTimeConfigRewardsConfigBean getBean(BasicGameTimeConfigRewardsConfigBean.RewardType rewardType, int id) {
         return beans.stream().filter(bean -> (bean.getType() == rewardType && bean.getId() == id)).findFirst().orElse(null);
+    }
+
+    public <T extends BasicGameTimeConfigRewardsConfigBean> List<T> getBeans(BasicGameTimeConfigRewardsConfigBean.RewardType rewardType, Class<T> clazz) {
+        return new ArrayList<>(beans.stream()
+                .filter(obj -> obj.getType() == rewardType)
+                .map(clazz::cast)
+                .toList());
     }
 
     public void clear() {
