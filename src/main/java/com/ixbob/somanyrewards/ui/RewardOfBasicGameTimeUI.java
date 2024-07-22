@@ -2,9 +2,9 @@ package com.ixbob.somanyrewards.ui;
 
 import com.ixbob.somanyrewards.config.BasicGameTimeConfigSubHolder;
 import com.ixbob.somanyrewards.config.ConfigHolder;
-import com.ixbob.somanyrewards.config.bean.BasicGameTimeConfigRewardsConfigBean;
 import com.ixbob.somanyrewards.config.bean.BasicGameTimeNormalRewardsConfigBean;
 import com.ixbob.somanyrewards.config.bean.BasicGameTimeSpecialRewardsConfigBean;
+import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
 import com.ixbob.somanyrewards.lang.LangManager;
 import com.ixbob.somanyrewards.playerdata.PlayerDataBlock;
 import com.ixbob.somanyrewards.playerdata.PlayerDataManager;
@@ -42,17 +42,17 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
 
         //lease: all normal and all special that able to be claimed till now.
         int leastNodeAmount = configSubHolder.getBeans(
-                BasicGameTimeConfigRewardsConfigBean.RewardType.SPECIAL,
+                BasicGameTimeRewardType.SPECIAL,
                 BasicGameTimeNormalRewardsConfigBean.class).size()
                 + (playTimeMinutes / eachTimePeriodShown);
         int createNodeAmount = leastNodeAmount + (9 - leastNodeAmount % 9);
         int createPageAmount = createNodeAmount / 9;
 
         Iterator<BasicGameTimeNormalRewardsConfigBean> normalBeansIter = configSubHolder.getBeans(
-                BasicGameTimeConfigRewardsConfigBean.RewardType.NORMAL,
+                BasicGameTimeRewardType.NORMAL,
                 BasicGameTimeNormalRewardsConfigBean.class).iterator();
         Iterator<BasicGameTimeSpecialRewardsConfigBean> specialBeansIter = configSubHolder.getBeans(
-                BasicGameTimeConfigRewardsConfigBean.RewardType.SPECIAL,
+                BasicGameTimeRewardType.SPECIAL,
                 BasicGameTimeSpecialRewardsConfigBean.class).iterator();
         BasicGameTimeNormalRewardsConfigBean selectedNormal = null;
         BasicGameTimeSpecialRewardsConfigBean selectedSpecial = null;
@@ -68,7 +68,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                 if (selectedNormal == null) {
                     if (!normalBeansIter.hasNext()) {
                         normalBeansIter = configSubHolder.getBeans(
-                                BasicGameTimeConfigRewardsConfigBean.RewardType.NORMAL,
+                                BasicGameTimeRewardType.NORMAL,
                                 BasicGameTimeNormalRewardsConfigBean.class).iterator();
                     }
                     selectedNormal = normalBeansIter.next();

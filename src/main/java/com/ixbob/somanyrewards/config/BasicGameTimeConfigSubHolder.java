@@ -3,6 +3,7 @@ package com.ixbob.somanyrewards.config;
 import com.ixbob.somanyrewards.config.bean.BasicGameTimeConfigRewardsConfigBean;
 import com.ixbob.somanyrewards.config.bean.BasicGameTimeNormalRewardsConfigBean;
 import com.ixbob.somanyrewards.config.bean.BasicGameTimeSpecialRewardsConfigBean;
+import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
 import com.ixbob.somanyrewards.util.LogUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
@@ -38,11 +39,11 @@ public class BasicGameTimeConfigSubHolder {
         }
     }
 
-    public BasicGameTimeConfigRewardsConfigBean getBean(BasicGameTimeConfigRewardsConfigBean.RewardType rewardType, int id) {
+    public BasicGameTimeConfigRewardsConfigBean getBean(BasicGameTimeRewardType rewardType, int id) {
         return beans.stream().filter(bean -> (bean.getType() == rewardType && bean.getId() == id)).findFirst().orElse(null);
     }
 
-    public <T extends BasicGameTimeConfigRewardsConfigBean> List<T> getBeans(BasicGameTimeConfigRewardsConfigBean.RewardType rewardType, Class<T> clazz) {
+    public <T extends BasicGameTimeConfigRewardsConfigBean> List<T> getBeans(BasicGameTimeRewardType rewardType, Class<T> clazz) {
         return new ArrayList<>(beans.stream()
                 .filter(obj -> obj.getType() == rewardType)
                 .map(clazz::cast)
@@ -65,11 +66,11 @@ public class BasicGameTimeConfigSubHolder {
             if (configSection.getName().equals("special_rewards")) {
                 displayWhen = Optional.of(configSection.getInt(id + ".display_when"));
                 addBean(new BasicGameTimeSpecialRewardsConfigBean(
-                        BasicGameTimeConfigRewardsConfigBean.RewardType.SPECIAL, id, rewardCommands, localItemTitle, localItemLores, displayWhen.get()));
+                        BasicGameTimeRewardType.SPECIAL, id, rewardCommands, localItemTitle, localItemLores, displayWhen.get()));
                 continue;
             }
             addBean(new BasicGameTimeNormalRewardsConfigBean(
-                    BasicGameTimeConfigRewardsConfigBean.RewardType.NORMAL, id, rewardCommands, localItemTitle, localItemLores));
+                    BasicGameTimeRewardType.NORMAL, id, rewardCommands, localItemTitle, localItemLores));
         }
     }
 }

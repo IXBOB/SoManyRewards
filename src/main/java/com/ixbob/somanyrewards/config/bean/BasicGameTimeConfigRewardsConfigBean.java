@@ -1,16 +1,18 @@
 package com.ixbob.somanyrewards.config.bean;
 
+import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
+
 import java.util.List;
 
 public abstract class BasicGameTimeConfigRewardsConfigBean extends BasicConfigBean {
 
-    private final RewardType type;
+    private final BasicGameTimeRewardType type;
     private final int id; //order displayed in the UI, starts from 0.
     private final List<String> rewardCommands;
     private final String localItemTitle;
     private final List<String> localItemLores;
 
-    public BasicGameTimeConfigRewardsConfigBean(final RewardType type, final int id, final List<String> rewardCommands, final String localItemTitle, final List<String> localItemLores) {
+    public BasicGameTimeConfigRewardsConfigBean(final BasicGameTimeRewardType type, final int id, final List<String> rewardCommands, final String localItemTitle, final List<String> localItemLores) {
         this.type = type;
         this.id = id;
         this.rewardCommands = rewardCommands;
@@ -18,7 +20,7 @@ public abstract class BasicGameTimeConfigRewardsConfigBean extends BasicConfigBe
         this.localItemLores = localItemLores;
     }
 
-    public RewardType getType() {
+    public BasicGameTimeRewardType getType() {
         return type;
     }
 
@@ -36,10 +38,5 @@ public abstract class BasicGameTimeConfigRewardsConfigBean extends BasicConfigBe
 
     public List<String> getLocalItemLores() {
         return localItemLores;
-    }
-
-    public enum RewardType {
-        NORMAL,
-        SPECIAL
     }
 }
