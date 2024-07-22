@@ -87,8 +87,10 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                                 selectedSpecial.getLocalItemTitle(),
                                 selectedSpecial.getLocalItemLores()));
                         addButton(page, index, ClickType.LEFT, ClaimBasicPlayTimeRewardButtonFactory.getInstance()
-                                .setData(page, index)
                                 .setPlayer(owner)
+                                .setType(BasicGameTimeRewardType.SPECIAL)
+                                .setId(creatingSpecialId)
+                                .setData(page, index)
                                 .create());
                         selectedSpecial = null;
                         continue;
@@ -103,8 +105,10 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                         selectedNormal.getLocalItemTitle(),
                         selectedNormal.getLocalItemLores()));
                 addButton(page, index, ClickType.LEFT, ClaimBasicPlayTimeRewardButtonFactory.getInstance()
-                        .setData(page, index)
                         .setPlayer(owner)
+                        .setType(BasicGameTimeRewardType.NORMAL)
+                        .setId(creatingNormalId)
+                        .setData(page, index)
                         .create());
             }
 
