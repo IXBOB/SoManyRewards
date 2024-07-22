@@ -17,8 +17,6 @@ public class ItemUtils {
     public static ItemStack getNamedItemStack(ItemStack itemStack, Player player, String title, @Nullable List<String> lores) {
         ItemStack result = new ItemStack(itemStack);
         ItemMeta meta = itemStack.getItemMeta();
-        System.out.println(title + "========");
-        System.out.println(langManager.getLang(player, title) + "1231231231231231");
         meta.displayName(Component.text(langManager.getLang(player, title)));
         if (lores != null) {
             List<Component> loreList = meta.lore();

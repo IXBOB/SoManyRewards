@@ -34,7 +34,6 @@ public final class SoManyRewards extends JavaPlugin {
         );
 
         ConfigHolder.getInstance().loadData();
-        System.out.println(SoManyRewards.getInstance().getDataFolder().getAbsolutePath());
     }
 
     @Override

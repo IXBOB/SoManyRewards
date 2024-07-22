@@ -1,16 +1,24 @@
 package com.ixbob.somanyrewards.ui.button;
 
+import com.ixbob.somanyrewards.annotation.RequireNotNull;
 import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
+import com.ixbob.somanyrewards.util.AnnotationUtils;
 import org.bukkit.entity.Player;
 
 public class ClaimBasicPlayTimeRewardButtonFactory implements ButtonFactory {
 
     private static final ClaimBasicPlayTimeRewardButtonFactory instance = new ClaimBasicPlayTimeRewardButtonFactory();
+
+    @RequireNotNull
     private Player player;
+    @RequireNotNull
     private BasicGameTimeRewardType type;
-    private int id;
-    private int pageIndex;
-    private int invIndex;
+    @RequireNotNull
+    private Integer id;
+    @RequireNotNull
+    private Integer pageIndex;
+    @RequireNotNull
+    private Integer invIndex;
 
     public static ClaimBasicPlayTimeRewardButtonFactory getInstance() {
         return instance;
@@ -18,6 +26,7 @@ public class ClaimBasicPlayTimeRewardButtonFactory implements ButtonFactory {
 
     @Override
     public BasicButton create() {
+        AnnotationUtils.validateFields(this);
         return new ClaimBasicPlayTimeRewardButton(player, type, id, pageIndex, invIndex);
     }
 

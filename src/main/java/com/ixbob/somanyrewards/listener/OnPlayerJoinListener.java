@@ -13,8 +13,6 @@ public class OnPlayerJoinListener implements Listener {
         LangManager.getInstance().createLoader(player, player.locale());
 
         String lang = LangManager.getInstance().getLang(player, "test");
-        System.out.println(lang);
-        System.out.println("1");
         player.sendMessage(lang);
     }
 }
