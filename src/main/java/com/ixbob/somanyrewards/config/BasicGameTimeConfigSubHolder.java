@@ -1,8 +1,8 @@
 package com.ixbob.somanyrewards.config;
 
-import com.ixbob.somanyrewards.config.configbean.BasicGameTimeConfigRewardsConfigBean;
-import com.ixbob.somanyrewards.config.configbean.BasicGameTimeNormalRewardsConfigBean;
-import com.ixbob.somanyrewards.config.configbean.BasicGameTimeSpecialRewardsConfigBean;
+import com.ixbob.somanyrewards.config.bean.BasicGameTimeConfigRewardsConfigBean;
+import com.ixbob.somanyrewards.config.bean.BasicGameTimeNormalRewardsConfigBean;
+import com.ixbob.somanyrewards.config.bean.BasicGameTimeSpecialRewardsConfigBean;
 import com.ixbob.somanyrewards.util.LogUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;

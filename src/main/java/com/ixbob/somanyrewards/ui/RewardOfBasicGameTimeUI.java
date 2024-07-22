@@ -2,9 +2,9 @@ package com.ixbob.somanyrewards.ui;
 
 import com.ixbob.somanyrewards.config.BasicGameTimeConfigSubHolder;
 import com.ixbob.somanyrewards.config.ConfigHolder;
-import com.ixbob.somanyrewards.config.configbean.BasicGameTimeConfigRewardsConfigBean;
-import com.ixbob.somanyrewards.config.configbean.BasicGameTimeNormalRewardsConfigBean;
-import com.ixbob.somanyrewards.config.configbean.BasicGameTimeSpecialRewardsConfigBean;
+import com.ixbob.somanyrewards.config.bean.BasicGameTimeConfigRewardsConfigBean;
+import com.ixbob.somanyrewards.config.bean.BasicGameTimeNormalRewardsConfigBean;
+import com.ixbob.somanyrewards.config.bean.BasicGameTimeSpecialRewardsConfigBean;
 import com.ixbob.somanyrewards.lang.LangManager;
 import com.ixbob.somanyrewards.playerdata.PlayerDataBlock;
 import com.ixbob.somanyrewards.playerdata.PlayerDataManager;

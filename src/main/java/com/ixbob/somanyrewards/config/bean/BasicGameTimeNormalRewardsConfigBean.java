@@ -1,4 +1,4 @@
-package com.ixbob.somanyrewards.config.configbean;
+package com.ixbob.somanyrewards.config.bean;
 
 import java.util.List;
 

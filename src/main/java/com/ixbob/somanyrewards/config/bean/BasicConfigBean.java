@@ -1,4 +1,4 @@
-package com.ixbob.somanyrewards.config.configbean;
+package com.ixbob.somanyrewards.config.bean;
 
 /**
  * Each specific reward in the config is finally encapsulated
