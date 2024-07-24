@@ -1,7 +1,6 @@
 package com.ixbob.somanyrewards.ui;
 
-import com.ixbob.somanyrewards.config.BasicGameTimeConfigSubHolder;
-import com.ixbob.somanyrewards.config.ConfigHolder;
+import com.ixbob.somanyrewards.config.ConfigSubHolderBasicGameTime;
 import com.ixbob.somanyrewards.config.bean.BasicGameTimeNormalRewardsConfigBean;
 import com.ixbob.somanyrewards.config.bean.BasicGameTimeSpecialRewardsConfigBean;
 import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
@@ -21,8 +20,8 @@ import java.util.Iterator;
 
 public class RewardOfBasicGameTimeUI extends BasicPageableUI {
 
-    final ConfigHolder configHolder = ConfigHolder.getInstance();
-    final BasicGameTimeConfigSubHolder configSubHolder = BasicGameTimeConfigSubHolder.getInstance();
+    final ConfigSubHolderBasicGameTime configHolder = ConfigSubHolderBasicGameTime.getInstance();
+    final ConfigSubHolderBasicGameTime configSubHolder = ConfigSubHolderBasicGameTime.getInstance();
     final ItemStack NORMAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
             configHolder.getNormalRewardsDefaultDisplayMaterial());
     final ItemStack SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
