@@ -1,6 +1,6 @@
 package com.ixbob.somanyrewards.config;
 
-public class ConfigHolder {
+public class ConfigHolder implements IConfigHolder {
 
     private static ConfigHolder instance;
 
@@ -11,6 +11,7 @@ public class ConfigHolder {
         return instance;
     }
 
+    @Override
     public void loadData() {
         ConfigSubHolderBasicGameTime.getInstance().loadData();
     }
