@@ -25,6 +25,10 @@ public abstract class BeansHolderConfigBasicGameTime implements BeansHolder<Conf
         }
     }
 
+    /**
+     * @param id  To Special: its id.
+     *            To Normal: its cycle id. e.g. 0,1,2,3,0,1,2,3,...
+     */
     public ConfigBeanBasicGameTimeRewards getBean(BasicGameTimeRewardType rewardType, int id) {
         return beans.stream().filter(bean -> (bean.getType() == rewardType && bean.getId() == id)).findFirst().orElse(null);
     }

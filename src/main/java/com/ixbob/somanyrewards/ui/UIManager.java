@@ -6,13 +6,12 @@ import java.util.HashMap;
 
 public class UIManager {
 
-    private static UIManager instance;
+    private static final UIManager instance = new UIManager();
     private static final HashMap<Player, BasicUI> holdersMap = new HashMap<>();
 
+    private UIManager() {}
+
     public static UIManager getInstance() {
-        if (instance == null) {
-            instance = new UIManager();
-        }
         return instance;
     }
 

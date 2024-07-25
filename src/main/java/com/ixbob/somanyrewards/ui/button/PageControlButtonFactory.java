@@ -14,6 +14,8 @@ public class PageControlButtonFactory implements ButtonFactory, IPageControlButt
     @RequireNotNull
     private ButtonType buttonType;
 
+    private PageControlButtonFactory() {}
+
     public static PageControlButtonFactory getInstance() {
         return instance;
     }

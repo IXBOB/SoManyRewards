@@ -5,13 +5,12 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 public class LangManager {
-    private static LangManager instance;
+    private static final LangManager instance = new LangManager();
     private final ArrayList<LangLoader> loadedLangInstances = new ArrayList<>();
 
+    private LangManager() {}
+
     public static LangManager getInstance() {
-        if (instance == null) {
-            instance = new LangManager();
-        }
         return instance;
     }
 

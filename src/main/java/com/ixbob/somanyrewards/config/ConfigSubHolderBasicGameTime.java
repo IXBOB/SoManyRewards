@@ -16,6 +16,8 @@ public class ConfigSubHolderBasicGameTime extends BeansHolderConfigBasicGameTime
     private static final ConfigSubHolderBasicGameTime instance = new ConfigSubHolderBasicGameTime();
 
     private int config_eachTimePeriodShown;
+    private int specialRewardsAmount;
+    private int normalRewardsAmount;
     private ConfigurationSection configLegacy_normalRewards;
     private ConfigurationSection configLegacy_specialRewards;
     private Material config_normalRewardsDefaultDisplayMaterial;
@@ -36,11 +38,14 @@ public class ConfigSubHolderBasicGameTime extends BeansHolderConfigBasicGameTime
         this.config_specialRewardsDefaultDisplayMaterial = Material.valueOf(rewardsOfBasicPlayTimeConfig.getString("special_rewards_default_display_material"));
         this.configLegacy_normalRewards = rewardsOfBasicPlayTimeConfig.getConfigurationSection("normal_rewards");
         this.configLegacy_specialRewards = rewardsOfBasicPlayTimeConfig.getConfigurationSection("special_rewards");
+        normalRewardsAmount = configLegacy_normalRewards == null ? 0 : configLegacy_normalRewards.getKeys(false).size();
+        specialRewardsAmount = configLegacy_specialRewards == null ? 0 : configLegacy_specialRewards.getKeys(false).size();
         loadFromLegacyConfigRewards(configLegacy_normalRewards);
         loadFromLegacyConfigRewards(configLegacy_specialRewards);
     }
 
     private void loadFromLegacyConfigRewards(ConfigurationSection configSection) {
+        if (configSection == null) return;
         List<String> rewardCommands;
         String localItemTitle;
         List<String> localItemLores;
@@ -78,5 +83,13 @@ public class ConfigSubHolderBasicGameTime extends BeansHolderConfigBasicGameTime
 
     public Material getSpecialRewardsDefaultDisplayMaterial() {
         return config_specialRewardsDefaultDisplayMaterial;
+    }
+
+    public int getNormalRewardsAmount() {
+        return normalRewardsAmount;
+    }
+
+    public int getSpecialRewardsAmount() {
+        return specialRewardsAmount;
     }
 }

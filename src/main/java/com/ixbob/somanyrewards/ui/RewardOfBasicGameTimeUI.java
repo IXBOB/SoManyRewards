@@ -20,12 +20,11 @@ import java.util.Iterator;
 
 public class RewardOfBasicGameTimeUI extends BasicPageableUI {
 
-    final ConfigSubHolderBasicGameTime configHolder = ConfigSubHolderBasicGameTime.getInstance();
     final ConfigSubHolderBasicGameTime configSubHolder = ConfigSubHolderBasicGameTime.getInstance();
     final ItemStack NORMAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
-            configHolder.getNormalRewardsDefaultDisplayMaterial());
+            configSubHolder.getNormalRewardsDefaultDisplayMaterial());
     final ItemStack SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
-            configHolder.getSpecialRewardsDefaultDisplayMaterial());
+            configSubHolder.getSpecialRewardsDefaultDisplayMaterial());
 
     public RewardOfBasicGameTimeUI(Player owner, int lineAmount, int pageAmount, int displayingPageIndex) {
         super(owner, lineAmount, pageAmount, displayingPageIndex);
@@ -37,7 +36,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
         //TODO: use Statistics when release. this is for test only now.
         final int playTimeMinutes = 225;
         final int claimedBasicPlayTime = dataBlock.getClaimedBasicGameTime();
-        final int eachTimePeriodShown = configHolder.getEachTimePeriodShown();
+        final int eachTimePeriodShown = configSubHolder.getEachTimePeriodShown();
 
         //lease: all normal and all special that able to be claimed till now.
         int leastNodeAmount = configSubHolder.getBeans(
@@ -56,8 +55,8 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
         ConfigBeanBasicGameTimeNormalRewards selectedNormal = null;
         ConfigBeanBasicGameTimeSpecialRewards selectedSpecial = null;
 
-        int creatingNormalId = -1;
-        int creatingSpecialId = -1;
+        int creatingNormalIdTotal = -1;  // how much normal rewards we've created
+        int creatingSpecialIdTotal = -1; // how much special rewards we've created
         int timeOfCreatingReward = 0;
         Integer nextSpecialTime = null;
 
@@ -79,7 +78,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
 
                 if (selectedSpecial != null) {
                     if (timeOfCreatingReward + eachTimePeriodShown >= nextSpecialTime) {
-                        creatingSpecialId++;
+                        creatingSpecialIdTotal++;
                         setDisplayItem(page, index, ItemUtils.getNamedItemStack(
                                 SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK,
                                 owner,
@@ -88,15 +87,18 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                         addButton(page, index, ClickType.LEFT, ClaimBasicPlayTimeRewardButtonFactory.getInstance()
                                 .setPlayer(owner)
                                 .setType(BasicGameTimeRewardType.SPECIAL)
-                                .setId(creatingSpecialId)
-                                .setData(page, index)
+                                .setId(creatingSpecialIdTotal)
+                                .setPos(page, index)
+                                .setCommands(configSubHolder
+                                        .getBean(BasicGameTimeRewardType.SPECIAL, creatingSpecialIdTotal)
+                                        .getRewardCommands())
                                 .create());
                         selectedSpecial = null;
                         continue;
                     }
                 }
 
-                creatingNormalId++;
+                creatingNormalIdTotal++;
                 timeOfCreatingReward += eachTimePeriodShown;
                 setDisplayItem(page, index, ItemUtils.getNamedItemStack(
                         NORMAL_REWARDS_DEFAULT_DISPLAY_STACK,
@@ -106,8 +108,11 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                 addButton(page, index, ClickType.LEFT, ClaimBasicPlayTimeRewardButtonFactory.getInstance()
                         .setPlayer(owner)
                         .setType(BasicGameTimeRewardType.NORMAL)
-                        .setId(creatingNormalId)
-                        .setData(page, index)
+                        .setId(creatingNormalIdTotal)
+                        .setPos(page, index)
+                        .setCommands(configSubHolder
+                                .getBean(BasicGameTimeRewardType.NORMAL, getCreatingNormalIdCycle(creatingNormalIdTotal))
+                                .getRewardCommands())
                         .create());
             }
 
@@ -135,5 +140,9 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                         .create());
             }
         }
+    }
+
+    private int getCreatingNormalIdCycle(int creatingNormalIdTotal) {
+        return creatingNormalIdTotal % configSubHolder.getNormalRewardsAmount();
     }
 }

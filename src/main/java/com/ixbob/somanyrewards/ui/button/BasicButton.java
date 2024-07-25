@@ -3,7 +3,7 @@ package com.ixbob.somanyrewards.ui.button;
 import org.bukkit.entity.Player;
 
 public abstract class BasicButton implements Runnable {
-    private Player player;
+    protected Player player;
 
     public BasicButton(Player player) {
         this.player = player;
