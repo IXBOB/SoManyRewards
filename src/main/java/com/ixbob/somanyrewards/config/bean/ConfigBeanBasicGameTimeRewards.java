@@ -4,7 +4,7 @@ import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
 
 import java.util.List;
 
-public abstract class BasicGameTimeConfigRewardsConfigBean extends BasicConfigBean {
+public abstract class ConfigBeanBasicGameTimeRewards extends BasicConfigBean {
 
     private final BasicGameTimeRewardType type;
     private final int id; //order displayed in the UI, starts from 0.
@@ -12,7 +12,7 @@ public abstract class BasicGameTimeConfigRewardsConfigBean extends BasicConfigBe
     private final String localItemTitle;
     private final List<String> localItemLores;
 
-    public BasicGameTimeConfigRewardsConfigBean(final BasicGameTimeRewardType type, final int id, final List<String> rewardCommands, final String localItemTitle, final List<String> localItemLores) {
+    public ConfigBeanBasicGameTimeRewards(final BasicGameTimeRewardType type, final int id, final List<String> rewardCommands, final String localItemTitle, final List<String> localItemLores) {
         this.type = type;
         this.id = id;
         this.rewardCommands = rewardCommands;

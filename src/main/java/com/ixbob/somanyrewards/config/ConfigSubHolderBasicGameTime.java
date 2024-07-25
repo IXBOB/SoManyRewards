@@ -1,9 +1,9 @@
 package com.ixbob.somanyrewards.config;
 
 import com.ixbob.somanyrewards.SoManyRewards;
-import com.ixbob.somanyrewards.config.bean.BasicGameTimeNormalRewardsConfigBean;
-import com.ixbob.somanyrewards.config.bean.BasicGameTimeSpecialRewardsConfigBean;
-import com.ixbob.somanyrewards.config.bean.holder.ConfigBasicGameTimeBeansHolder;
+import com.ixbob.somanyrewards.config.bean.ConfigBeanBasicGameTimeNormalRewards;
+import com.ixbob.somanyrewards.config.bean.ConfigBeanBasicGameTimeSpecialRewards;
+import com.ixbob.somanyrewards.config.bean.holder.BeansHolderConfigBasicGameTime;
 import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -12,7 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.List;
 import java.util.Optional;
 
-public class ConfigSubHolderBasicGameTime extends ConfigBasicGameTimeBeansHolder implements IConfigHolder {
+public class ConfigSubHolderBasicGameTime extends BeansHolderConfigBasicGameTime implements IConfigHolder {
     private static final ConfigSubHolderBasicGameTime instance = new ConfigSubHolderBasicGameTime();
 
     private int config_eachTimePeriodShown;
@@ -33,8 +33,8 @@ public class ConfigSubHolderBasicGameTime extends ConfigBasicGameTimeBeansHolder
         assert rewardsOfBasicPlayTimeConfig != null;
         this.config_eachTimePeriodShown = rewardsOfBasicPlayTimeConfig.getInt("each_time_period_shown");
         this.config_normalRewardsDefaultDisplayMaterial = Material.valueOf(rewardsOfBasicPlayTimeConfig.getString("normal_rewards_default_display_material"));
-        this.configLegacy_normalRewards = rewardsOfBasicPlayTimeConfig.getConfigurationSection("normal_rewards");
         this.config_specialRewardsDefaultDisplayMaterial = Material.valueOf(rewardsOfBasicPlayTimeConfig.getString("special_rewards_default_display_material"));
+        this.configLegacy_normalRewards = rewardsOfBasicPlayTimeConfig.getConfigurationSection("normal_rewards");
         this.configLegacy_specialRewards = rewardsOfBasicPlayTimeConfig.getConfigurationSection("special_rewards");
         loadFromLegacyConfigRewards(configLegacy_normalRewards);
         loadFromLegacyConfigRewards(configLegacy_specialRewards);
@@ -51,11 +51,11 @@ public class ConfigSubHolderBasicGameTime extends ConfigBasicGameTimeBeansHolder
             localItemLores = configSection.getStringList(id + ".local_item_lores");
             if (configSection.getName().equals("special_rewards")) {
                 displayWhen = Optional.of(configSection.getInt(id + ".display_when"));
-                addBean(new BasicGameTimeSpecialRewardsConfigBean(
+                addBean(new ConfigBeanBasicGameTimeSpecialRewards(
                         BasicGameTimeRewardType.SPECIAL, id, rewardCommands, localItemTitle, localItemLores, displayWhen.get()));
                 continue;
             }
-            addBean(new BasicGameTimeNormalRewardsConfigBean(
+            addBean(new ConfigBeanBasicGameTimeNormalRewards(
                     BasicGameTimeRewardType.NORMAL, id, rewardCommands, localItemTitle, localItemLores));
         }
     }

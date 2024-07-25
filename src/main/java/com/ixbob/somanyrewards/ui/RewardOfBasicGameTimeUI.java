@@ -1,8 +1,8 @@
 package com.ixbob.somanyrewards.ui;
 
 import com.ixbob.somanyrewards.config.ConfigSubHolderBasicGameTime;
-import com.ixbob.somanyrewards.config.bean.BasicGameTimeNormalRewardsConfigBean;
-import com.ixbob.somanyrewards.config.bean.BasicGameTimeSpecialRewardsConfigBean;
+import com.ixbob.somanyrewards.config.bean.ConfigBeanBasicGameTimeNormalRewards;
+import com.ixbob.somanyrewards.config.bean.ConfigBeanBasicGameTimeSpecialRewards;
 import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
 import com.ixbob.somanyrewards.lang.LangManager;
 import com.ixbob.somanyrewards.playerdata.PlayerDataBlock;
@@ -42,19 +42,19 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
         //lease: all normal and all special that able to be claimed till now.
         int leastNodeAmount = configSubHolder.getBeans(
                 BasicGameTimeRewardType.SPECIAL,
-                BasicGameTimeNormalRewardsConfigBean.class).size()
+                ConfigBeanBasicGameTimeNormalRewards.class).size()
                 + (playTimeMinutes / eachTimePeriodShown);
         int createNodeAmount = leastNodeAmount + (9 - leastNodeAmount % 9);
         int createPageAmount = createNodeAmount / 9;
 
-        Iterator<BasicGameTimeNormalRewardsConfigBean> normalBeansIter = configSubHolder.getBeans(
+        Iterator<ConfigBeanBasicGameTimeNormalRewards> normalBeansIter = configSubHolder.getBeans(
                 BasicGameTimeRewardType.NORMAL,
-                BasicGameTimeNormalRewardsConfigBean.class).iterator();
-        Iterator<BasicGameTimeSpecialRewardsConfigBean> specialBeansIter = configSubHolder.getBeans(
+                ConfigBeanBasicGameTimeNormalRewards.class).iterator();
+        Iterator<ConfigBeanBasicGameTimeSpecialRewards> specialBeansIter = configSubHolder.getBeans(
                 BasicGameTimeRewardType.SPECIAL,
-                BasicGameTimeSpecialRewardsConfigBean.class).iterator();
-        BasicGameTimeNormalRewardsConfigBean selectedNormal = null;
-        BasicGameTimeSpecialRewardsConfigBean selectedSpecial = null;
+                ConfigBeanBasicGameTimeSpecialRewards.class).iterator();
+        ConfigBeanBasicGameTimeNormalRewards selectedNormal = null;
+        ConfigBeanBasicGameTimeSpecialRewards selectedSpecial = null;
 
         int creatingNormalId = -1;
         int creatingSpecialId = -1;
@@ -68,7 +68,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                     if (!normalBeansIter.hasNext()) {
                         normalBeansIter = configSubHolder.getBeans(
                                 BasicGameTimeRewardType.NORMAL,
-                                BasicGameTimeNormalRewardsConfigBean.class).iterator();
+                                ConfigBeanBasicGameTimeNormalRewards.class).iterator();
                     }
                     selectedNormal = normalBeansIter.next();
                 }

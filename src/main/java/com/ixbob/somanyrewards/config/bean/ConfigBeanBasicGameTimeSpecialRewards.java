@@ -4,11 +4,11 @@ import com.ixbob.somanyrewards.enums.BasicGameTimeRewardType;
 
 import java.util.List;
 
-public class BasicGameTimeSpecialRewardsConfigBean extends BasicGameTimeNormalRewardsConfigBean {
+public class ConfigBeanBasicGameTimeSpecialRewards extends ConfigBeanBasicGameTimeNormalRewards {
 
     protected final int displayWhen;
 
-    public BasicGameTimeSpecialRewardsConfigBean(BasicGameTimeRewardType type, int id, List<String> rewardCommands, String localItemTitle, List<String> localItemLores, int displayWhen) {
+    public ConfigBeanBasicGameTimeSpecialRewards(BasicGameTimeRewardType type, int id, List<String> rewardCommands, String localItemTitle, List<String> localItemLores, int displayWhen) {
         super(type, id, rewardCommands, localItemTitle, localItemLores);
         this.displayWhen = displayWhen;
     }
