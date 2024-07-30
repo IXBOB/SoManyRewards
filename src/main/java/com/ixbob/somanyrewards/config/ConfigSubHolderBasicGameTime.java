@@ -49,19 +49,24 @@ public class ConfigSubHolderBasicGameTime extends BeansHolderConfigBasicGameTime
         List<String> rewardCommands;
         String localItemTitle;
         List<String> localItemLores;
+        Material displayMaterial;
         Optional<Integer> displayWhen;
         for (int id = 0; id < configSection.getKeys(false).size(); id++) {
             rewardCommands = configSection.getStringList(id + ".rewards");
             localItemTitle = configSection.getString(id + ".local_item_title");
             localItemLores = configSection.getStringList(id + ".local_item_lores");
+            displayMaterial = Optional.ofNullable(configSection.getString(id + ".display_material")).map(Material::valueOf).orElse(null);
             if (configSection.getName().equals("special_rewards")) {
+                if (displayMaterial == null) {displayMaterial = ConfigSubHolderBasicGameTime.getInstance().getSpecialRewardsDefaultDisplayMaterial();}
                 displayWhen = Optional.of(configSection.getInt(id + ".display_when"));
+
                 addBean(new ConfigBeanBasicGameTimeSpecialRewards(
-                        BasicGameTimeRewardType.SPECIAL, id, rewardCommands, localItemTitle, localItemLores, displayWhen.get()));
+                        BasicGameTimeRewardType.SPECIAL, id, displayMaterial, rewardCommands, localItemTitle, localItemLores, displayWhen.get()));
                 continue;
             }
+            if (displayMaterial == null) {displayMaterial = ConfigSubHolderBasicGameTime.getInstance().getNormalRewardsDefaultDisplayMaterial();}
             addBean(new ConfigBeanBasicGameTimeNormalRewards(
-                    BasicGameTimeRewardType.NORMAL, id, rewardCommands, localItemTitle, localItemLores));
+                    BasicGameTimeRewardType.NORMAL, id, displayMaterial, rewardCommands, localItemTitle, localItemLores));
         }
     }
 

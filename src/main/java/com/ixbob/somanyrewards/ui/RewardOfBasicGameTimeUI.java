@@ -21,10 +21,6 @@ import java.util.Iterator;
 public class RewardOfBasicGameTimeUI extends BasicPageableUI {
 
     final ConfigSubHolderBasicGameTime configSubHolder = ConfigSubHolderBasicGameTime.getInstance();
-    final ItemStack NORMAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
-            configSubHolder.getNormalRewardsDefaultDisplayMaterial());
-    final ItemStack SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK = new ItemStack(
-            configSubHolder.getSpecialRewardsDefaultDisplayMaterial());
 
     public RewardOfBasicGameTimeUI(Player owner, int lineAmount, int pageAmount, int displayingPageIndex) {
         super(owner, lineAmount, pageAmount, displayingPageIndex);
@@ -70,7 +66,6 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                                 ConfigBeanBasicGameTimeNormalRewards.class).iterator();
                     }
                     selectedNormal = normalBeansIter.next();
-                    System.out.println(selectedNormal);
                 }
                 if (selectedSpecial == null && specialBeansIter.hasNext()) {
                     selectedSpecial = specialBeansIter.next();
@@ -81,7 +76,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                     if (timeOfCreatingReward + eachTimePeriodShown >= nextSpecialTime) {
                         creatingSpecialIdTotal++;
                         setDisplayItem(page, index, ItemUtils.getNamedItemStack(
-                                SPECIAL_REWARDS_DEFAULT_DISPLAY_STACK,
+                                new ItemStack(selectedSpecial.getDisplayMaterial()),
                                 owner,
                                 selectedSpecial.getLocalItemTitle(),
                                 selectedSpecial.getLocalItemLores()));
@@ -102,7 +97,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                 creatingNormalIdTotal++;
                 timeOfCreatingReward += eachTimePeriodShown;
                 setDisplayItem(page, index, ItemUtils.getNamedItemStack(
-                        NORMAL_REWARDS_DEFAULT_DISPLAY_STACK,
+                        new ItemStack(selectedNormal.getDisplayMaterial()),
                         owner,
                         selectedNormal.getLocalItemTitle(),
                         selectedNormal.getLocalItemLores()));

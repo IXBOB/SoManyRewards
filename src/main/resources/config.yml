@@ -9,6 +9,7 @@ Rewards:
         rewards: ["give %player% diamond 1"]
         local_item_title: "basic_playtime_node_normal_diamond_plus_1"
         local_item_lores: ["basic_playtime_node_normal_diamond_plus_1"]
+        display_material: DIAMOND #optional
       1:
         rewards: ["give %player% emerald 1"]
         local_item_title: "basic_playtime_node_normal_emerald_plus_1"
@@ -17,6 +18,7 @@ Rewards:
         rewards: ["give %player% iron_ingot 1"]
         local_item_title: "basic_playtime_node_normal_iron_ingot_plus_1"
         local_item_lores: ["basic_playtime_node_normal_iron_ingot_plus_1"]
+        display_material: IRON_INGOT
 
     #Special rewards will be inserted into the GUI as a separate node at the defined time.
     #If the node conflicts with normal rewards, the special rewards node will overwrite the normal rewards' node.
@@ -27,6 +29,7 @@ Rewards:
         local_item_title: "basic_playtime_node_special_carrot_plus_9"
         local_item_lores: ["basic_playtime_node_special_carrot_plus_9"]
         display_when: 75
+        display_material: CARROT #optional
       1:
         rewards: [ "give %player% snowball 9" ]
         local_item_title: "basic_playtime_node_special_snowball_plus_9"
