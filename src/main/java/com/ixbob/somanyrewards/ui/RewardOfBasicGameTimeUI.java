@@ -70,6 +70,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                                 ConfigBeanBasicGameTimeNormalRewards.class).iterator();
                     }
                     selectedNormal = normalBeansIter.next();
+                    System.out.println(selectedNormal);
                 }
                 if (selectedSpecial == null && specialBeansIter.hasNext()) {
                     selectedSpecial = specialBeansIter.next();
@@ -114,6 +115,7 @@ public class RewardOfBasicGameTimeUI extends BasicPageableUI {
                                 .getBean(BasicGameTimeRewardType.NORMAL, getCreatingNormalIdCycle(creatingNormalIdTotal))
                                 .getRewardCommands())
                         .create());
+                selectedNormal = null;
             }
 
             //add next/previous page button.

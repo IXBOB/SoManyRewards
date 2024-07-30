@@ -19,7 +19,7 @@ Rewards:
         local_item_lores: ["basic_playtime_node_normal_iron_ingot_plus_1"]
 
     #Special rewards will be inserted into the GUI as a separate node at the defined time.
-    #If the node conflicts with normal rewards, the special rewards node will overwrite the normal rewards node.
+    #If the node conflicts with normal rewards, the special rewards node will overwrite the normal rewards' node.
     special_rewards_default_display_material: GOLD_BLOCK
     special_rewards:
       0:
